@@ -30,11 +30,13 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "material-ui": "^0.18.3",
     "normalize.css": "^7.0.0",
+    "prop-types": "latest",
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
     "react-redux": "^5.0.5",
-    "redux": "^3.6.0",
-    "prop-types": "latest"
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0"
   }
 }
