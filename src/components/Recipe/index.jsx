@@ -1,10 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getActiveRecipe } from '../../reducer';
 import './style.css';
 
-function Recipe() {
+function Recipe({ recipe }) {
   return (
-    <div className="recipe">Recipe</div>
+    <div className="recipe">
+      <h1 >{recipe.title}</h1>
+      <p >{recipe.ingridients}</p>
+    </div>
   );
 }
 
-export default Recipe;
+Recipe.defaultProps = {
+  recipe: {
+    title: '',
+    ingridients: '',
+  },
+};
+
+function mapStateToProps(state) {
+  return {
+    recipe: getActiveRecipe(state),
+  };
+}
+
+export default connect(mapStateToProps)(Recipe);

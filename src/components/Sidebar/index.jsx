@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getRecipes } from '../../reducer';
-import { addRecipe as addRecipeAction } from '../../actions';
+import { addRecipe as addRecipeAction, setActiveRecipe as setActiveRecipeAction } from '../../actions';
 import './style.css';
 
 class Sidebar extends Component {
@@ -17,21 +17,27 @@ class Sidebar extends Component {
   }
 
   render() {
-    const { recipes } = this.props;
+    const { recipes, setActive } = this.props;
 
     return (
       <div className="sidebar">
-        {recipes.map(r => <p>{r.title}</p>)}
+        {recipes.map(r => <p onClick={() => setActive(r.title)} key={r.title}>{r.title}</p>)}
 
         <form onSubmit={::this.handleAddRecipe}>
           <p>
-            <input value={this.state.title} onChange={e => this.setState({ title: e.target.value })} type="text" />
+            <input
+              value={this.state.title}
+              onChange={e => this.setState({ title: e.target.value })}
+              type="text"
+              required
+            />
           </p>
           <p>
             <input
               value={this.state.ingridients}
               onChange={e => this.setState({ ingridients: e.target.value })}
               type="text"
+              required
             />
           </p>
           <button>Add Recipe</button>
@@ -50,6 +56,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addRecipe: recipe => dispatch(addRecipeAction(recipe)),
+    setActive: title => dispatch(setActiveRecipeAction(title)),
   };
 }
 
