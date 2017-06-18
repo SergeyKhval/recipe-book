@@ -1,5 +1,5 @@
 import head from 'lodash/head';
-import { ADD_RECIPE, SET_ACTIVE_RECIPE, UPDATE_RECIPE_PROP } from './actions';
+import { ADD_RECIPE, REMOVE_RECIPE, SET_ACTIVE_RECIPE, UPDATE_RECIPE_PROP } from './actions';
 
 const defaultRecipes = [
   {
@@ -20,6 +20,8 @@ function recipesReducer(recipes = defaultRecipes, { type, payload }) {
   switch (type) {
     case ADD_RECIPE:
       return [...recipes, payload];
+    case REMOVE_RECIPE:
+      return recipes.filter(r => r.id !== payload);
     case SET_ACTIVE_RECIPE:
       return recipes.map(r => {
         if (r.id === payload) {

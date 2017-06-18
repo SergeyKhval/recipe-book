@@ -4,7 +4,7 @@ import { getActiveRecipe } from '../../reducer';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import { updateRecipeProp as updateRecipPropAction } from '../../actions';
+import { updateRecipeProp as updateRecipPropAction, removeRecipe as removeRecipeAction } from '../../actions';
 import './style.css';
 
 class Recipe extends Component {
@@ -17,7 +17,7 @@ class Recipe extends Component {
   }
 
   render() {
-    const { recipe, updateRecipeProp } = this.props;
+    const { recipe, updateRecipeProp, removeRecipe } = this.props;
 
     const actions = [
       <FlatButton
@@ -37,6 +37,9 @@ class Recipe extends Component {
         <p>
           <FlatButton label="Edit" primary onClick={() => {
             this.setState({ isEditModalOpen: true });
+          }} />
+          <FlatButton label="Delete" secondary onClick={() => {
+            removeRecipe(recipe.id);
           }} />
         </p>
 
@@ -82,6 +85,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateRecipeProp: (id, prop, title) => dispatch(updateRecipPropAction(id, prop, title)),
+    removeRecipe: id => dispatch(removeRecipeAction(id)),
   };
 }
 
