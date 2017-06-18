@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
 import { getRecipes } from '../../reducer';
 import { addRecipe as addRecipeAction, setActiveRecipe as setActiveRecipeAction } from '../../actions';
@@ -6,14 +7,15 @@ import './style.css';
 
 class Sidebar extends Component {
   state = {
+    id: '',
     title: '',
     ingridients: '',
   };
 
   handleAddRecipe(e) {
     e.preventDefault();
-    this.props.addRecipe(this.state);
-    this.setState({ title: '', ingridients: '' });
+    this.props.addRecipe({ ...this.state, id: uuid() });
+    this.setState({ title: '', ingridients: '', id: '' });
   }
 
   render() {
@@ -21,7 +23,7 @@ class Sidebar extends Component {
 
     return (
       <div className="sidebar">
-        {recipes.map(r => <p onClick={() => setActive(r.title)} key={r.title}>{r.title}</p>)}
+        {recipes.map(r => <p onClick={() => setActive(r.id)} key={r.id}>{r.title}</p>)}
 
         <form onSubmit={::this.handleAddRecipe}>
           <p>
